@@ -107,14 +107,51 @@ function sleepPct(str, target="7:30") {
   return Math.min(100, Math.round(parse(str)/parse(target)*100));
 }
 function pct(v, target) { return v == null ? 0 : Math.min(100, Math.round(v/target*100)); }
-function tip(today, yesterday, targets) {
-  const issues = [];
-  if (yesterday.steps != null && yesterday.steps < targets.steps * 0.85) issues.push("Schritte");
-  if (yesterday.protein != null && yesterday.protein < targets.protein * 0.75) issues.push("Protein");
-  if (yesterday.kcal != null && yesterday.kcal < targets.kcal * 0.75) issues.push("kcal");
-  if (sleepPct(today.sleep, targets.sleep) < 85) issues.push("Schlaf");
-  if (!issues.length) return null;
-  return issues.join(" und ");
+function sleepH(str) {
+  if (!str) return null;
+  const [h, m] = str.split(":").map(Number);
+  return h + m / 60;
+}
+
+function generateTips(today, yesterday, cw, targets) {
+  const daily = [], weekly = [];
+
+  // Daily checks
+  if (yesterday.kcal != null) {
+    const r = yesterday.kcal / targets.kcal;
+    if (r >= 2.0) daily.push(`Deine kcal-Aufnahme war gestern mit <b>${yesterday.kcal.toLocaleString("de")} kcal</b> deutlich über dem Ziel`);
+    else if (r >= 1.3) daily.push(`Mit <b>${yesterday.kcal.toLocaleString("de")} kcal</b> gestern etwas über dem Tagesziel`);
+    else if (r < 0.7) daily.push(`Gestern nur <b>${yesterday.kcal.toLocaleString("de")} kcal</b> — heute ausreichend essen`);
+  }
+  if (yesterday.protein != null) {
+    const r = yesterday.protein / targets.protein;
+    if (r < 0.5) daily.push(`Gestern nur <b>${yesterday.protein}g Protein</b> — heute aktiv auf eiweißreiche Mahlzeiten achten`);
+    else if (r < 0.8) daily.push(`Mit <b>${yesterday.protein}g Protein</b> gestern etwas unter dem Ziel`);
+  }
+  if (yesterday.steps != null) {
+    const r = yesterday.steps / targets.steps;
+    if (r < 0.7) daily.push(`Gestern <b>${yesterday.steps.toLocaleString("de")} Schritte</b> — heute mehr Bewegung einplanen`);
+    else if (r < 0.9) daily.push(`Gestern <b>${yesterday.steps.toLocaleString("de")} Schritte</b> — heute eine kleine Extrarunde`);
+  }
+  const slpH = sleepH(today.sleep);
+  if (slpH != null) {
+    const diff = slpH - targets.sleep_h;
+    if (diff < -1.5) daily.push(`Nur <b>${today.sleep}h Schlaf</b> letzte Nacht — heute früher ins Bett`);
+    else if (diff < -0.5) daily.push(`<b>${today.sleep}h Schlaf</b> letzte Nacht — etwas unter dem Ziel`);
+  }
+
+  // Weekly checks
+  if (cw.steps != null && cw.steps / targets.steps < 0.85)
+    weekly.push(`Wochenschnitt Schritte <b>${cw.steps.toLocaleString("de")}</b> — heute eine extra Runde hilft`);
+  if (cw.kcal != null && cw.kcal / targets.kcal >= 1.25)
+    weekly.push(`Wochenschnitt kcal bei <b>${cw.kcal.toLocaleString("de")}</b> — im Schnitt etwas viel diese Woche`);
+  if (cw.protein != null && cw.protein / targets.protein < 0.75)
+    weekly.push(`Wochenschnitt Protein <b>${cw.protein}g</b> — konsequenter auf Protein achten`);
+  const cwSlpH = sleepH(cw.sleep);
+  if (cwSlpH != null && cwSlpH < targets.sleep_h - 0.5)
+    weekly.push(`Wochenschnitt Schlaf <b>${cw.sleep}h</b> — diese Woche früher schlafen gehen`);
+
+  return { daily, weekly };
 }
 function badge(v, g, ok) {
   if (v == null) return '<span style="color:var(--muted)">—</span>';
@@ -138,7 +175,7 @@ async function triggerRun(pat) {
 
 function render(data) {
   const { today, yesterday, current_week:cw, prev_week:pw, weeks, targets, generated } = data;
-  const tipText = tip(today, yesterday, targets);
+  const { daily: tipDaily, weekly: tipWeekly } = generateTips(today, yesterday, cw, pw, targets);
   const PAT = localStorage.getItem("gh_pat") || "";
 
   const tileHTML = (name, color, when, val, valFmt, pctVal, avg, avgFmt) => `
@@ -227,10 +264,16 @@ function render(data) {
         cw?.kcal?.toLocaleString("de"), `/ ${targets.kcal.toLocaleString("de")}`)}
     </div>
 
-    ${tipText ? `
+    ${(tipDaily.length > 0 || tipWeekly.length > 0) ? `
     <div class="tip">
-      <div class="tip-title">Heute ein Auge drauf</div>
-      <div class="tip-text">${tipText} waren gestern etwas schwächer — einfach heute etwas bewusster</div>
+      ${tipDaily.length > 0 ? `
+        <div class="tip-title">Heute im Blick</div>
+        ${tipDaily.map(t => `<div class="tip-text">· ${t}</div>`).join("")}
+      ` : ""}
+      ${tipWeekly.length > 0 ? `
+        <div class="tip-title" style="margin-top:${tipDaily.length>0?"8px":"0"}">Diese Woche</div>
+        ${tipWeekly.map(t => `<div class="tip-text">· ${t}</div>`).join("")}
+      ` : ""}
     </div>` : `
     <div class="tip" style="border-left-color:${SDLN.mint}">
       <div class="tip-title" style="color:${SDLN.mint}">Alles im grünen Bereich</div>
