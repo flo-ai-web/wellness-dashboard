@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#00B4C8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SDLN Wellness">
+<title>SDLN Wellness</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #21262d;
+  --border: rgba(255,255,255,0.08); --text: #e6edf3; --muted: #7d8590;
+  --turq: #00B4C8; --mint: #57C9A8; --orng: #F26522; --yell: #FFD100;
+  --radius: 12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+.app{max-width:420px;margin:0 auto;padding-bottom:2rem}
+
+.stripe-bar{height:4px;display:flex}
+.stripe-bar div{flex:1}
+
+.header{padding:1rem 1rem 0.75rem;display:flex;justify-content:space-between;align-items:center}
+.header-title{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--text)}
+.header-meta{font-size:11px;color:var(--muted)}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--turq);margin-right:4px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.refresh-btn{background:rgba(0,180,200,0.12);border:0.5px solid rgba(0,180,200,0.3);color:var(--turq);border-radius:20px;padding:5px 12px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .2s}
+.refresh-btn:active{background:rgba(0,180,200,0.25)}
+.refresh-btn.loading{opacity:.6;pointer-events:none}
+.spin{animation:spin .8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.refresh-msg{text-align:center;font-size:11px;color:var(--muted);padding:4px 0 8px;min-height:20px}
+
+.weight-card{margin:0 1rem 10px;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);padding:12px 14px}
+.weight-row{display:flex;align-items:center;gap:10px}
+.weight-main{flex:1.3}
+.weight-big{font-size:32px;font-weight:600;color:var(--text);line-height:1}
+.weight-unit{font-size:13px;color:var(--muted);margin-left:3px}
+.weight-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.weight-box{flex:1;text-align:center;padding:6px 8px;border-radius:8px}
+.weight-val{font-size:15px;font-weight:500}
+.weight-lbl{font-size:10px;color:var(--muted);margin-top:1px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 1rem 8px}
+.tile{background:var(--surface);border-radius:var(--radius);border-top:2px solid;padding:11px 12px}
+.tile-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.tile-name{font-size:12px;font-weight:500;color:var(--text)}
+.tile-target{font-size:9px;color:var(--muted)}
+.tile-value{font-size:22px;font-weight:600;line-height:1}
+.tile-when{font-size:9px;color:var(--muted);margin-bottom:6px;margin-top:1px}
+.bar-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.bar-fill{height:100%;border-radius:2px;transition:width .5s ease}
+.tile-avg{display:flex;justify-content:space-between}
+.tile-avg-lbl{font-size:9px;color:var(--muted)}
+.tile-avg-val{font-size:11px;font-weight:500}
+
+.tip{margin:0 1rem 12px;background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;border-left:2px solid var(--orng);padding:9px 13px}
+.tip-title{font-size:11px;font-weight:500;color:var(--orng);margin-bottom:2px}
+.tip-text{font-size:10px;color:var(--muted);line-height:1.5}
+
+.section-title{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 1rem 8px}
+.chart-wrap{margin:0 1rem 1rem;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);padding:1rem 1rem 0.5rem}
+.chart-canvas{position:relative;height:160px}
+
+.tbl-wrap{margin:0 1rem;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:480px}
+th{padding:5px 7px;text-align:right;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-bottom:0.5px solid var(--border)}
+th:first-child{text-align:left}
+td{padding:6px 7px;text-align:right;border-bottom:0.5px solid var(--border);color:var(--text)}
+td:first-child{text-align:left;color:var(--muted);font-weight:500;font-size:10px}
+tr.this-week td{background:rgba(0,180,200,0.05)}
+.b{display:inline-block;border-radius:3px;padding:1px 5px;font-size:10px}
+.bg{background:rgba(87,201,168,0.15);color:#57C9A8}
+.ba{background:rgba(242,101,34,0.15);color:#F26522}
+.br{background:rgba(226,75,74,0.15);color:#E24B4A}
+
+.footer-stripes{display:flex;justify-content:center;gap:4px;margin:1.5rem 0 0.5rem}
+.footer-stripes div{width:20px;height:3px;border-radius:2px}
+.footer-tag{text-align:center;font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding-bottom:1rem}
+
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:12px}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--turq);border-radius:50%;animation:spin .8s linear infinite}
+.loading-screen p{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="loading-screen">
+    <div class="spinner"></div>
+    <p>Daten werden geladen…</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const REPO  = "flo-ai-web/wellness-dashboard";
+const WF    = "update_data.yml";
+const SDLN  = { turq:"#00B4C8", mint:"#57C9A8", orng:"#F26522", yell:"#FFD100" };
+
+function sleepPct(str, target="7:30") {
+  if (!str) return 0;
+  const parse = s => { const [h,m] = s.split(":").map(Number); return h*60+m; };
+  return Math.min(100, Math.round(parse(str)/parse(target)*100));
+}
+function pct(v, target) { return v == null ? 0 : Math.min(100, Math.round(v/target*100)); }
+function tip(today, yesterday, targets) {
+  const issues = [];
+  if (yesterday.steps != null && yesterday.steps < targets.steps * 0.85) issues.push("Schritte");
+  if (yesterday.protein != null && yesterday.protein < targets.protein * 0.75) issues.push("Protein");
+  if (yesterday.kcal != null && yesterday.kcal < targets.kcal * 0.75) issues.push("kcal");
+  if (sleepPct(today.sleep, targets.sleep) < 85) issues.push("Schlaf");
+  if (!issues.length) return null;
+  return issues.join(" und ");
+}
+function badge(v, g, ok) {
+  if (v == null) return '<span style="color:var(--muted)">—</span>';
+  const cls = v >= g ? "bg" : v >= ok ? "ba" : "br";
+  return `<span class="b ${cls}">${v}</span>`;
+}
+function wgtTrend(cur, prev) {
+  if (!cur || !prev) return "";
+  const d = (cur - prev).toFixed(1);
+  const col = d <= 0 ? SDLN.turq : SDLN.orng;
+  return `<span style="color:${col};font-size:14px;font-weight:500">${d > 0 ? "+" : ""}${d}</span>`;
+}
+
+async function triggerRun(pat) {
+  if (!pat) return;
+  await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${WF}/dispatches`, {
+    method:"POST", headers:{"Authorization":`token ${pat}`,"Content-Type":"application/json"},
+    body: JSON.stringify({ ref:"main" })
+  });
+}
+
+function render(data) {
+  const { today, yesterday, current_week:cw, prev_week:pw, weeks, targets, generated } = data;
+  const tipText = tip(today, yesterday, targets);
+  const PAT = localStorage.getItem("gh_pat") || "";
+
+  const tileHTML = (name, color, when, val, valFmt, pctVal, avg, avgFmt) => `
+    <div class="tile" style="border-top-color:${color}">
+      <div class="tile-header">
+        <span class="tile-name">${name}</span>
+        <span class="tile-target">${valFmt.replace(String(val ?? ""), "/ ")}</span>
+      </div>
+      <div class="tile-value" style="color:${color}">${val ?? "—"}</div>
+      <div class="tile-when">${when}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pctVal}%;background:${color}"></div></div>
+      <div class="tile-avg">
+        <span class="tile-avg-lbl">KW-Ø</span>
+        <span class="tile-avg-val" style="color:${color};opacity:.8">${avg ?? "—"}</span>
+      </div>
+    </div>`;
+
+  const schritte = yesterday?.steps;
+  const schlaf   = today?.sleep;
+  const protein  = yesterday?.protein;
+  const kcal     = yesterday?.kcal;
+
+  const tableRows = weeks.slice().reverse().map((w,i) => {
+    const isCur = i === 0;
+    return `<tr${isCur?' class="this-week"':''}>
+      <td>${w.kw}<br><span style="font-size:9px">${w.period}</span></td>
+      <td>${w.weight?.toFixed(1) ?? "—"}</td>
+      <td>${w.sleep ?? "—"}</td>
+      <td>${w.steps ? badge(w.steps, 10000, 7000) : "—"}</td>
+      <td>${w.kcal?.toLocaleString("de") ?? "—"}</td>
+      <td>${w.protein ? badge(w.protein, 160, 120) : "—"}</td>
+      <td>${w.train_min ? w.train_min+"min" : "—"}</td>
+    </tr>`;
+  }).join("");
+
+  document.getElementById("app").innerHTML = `
+    <div class="stripe-bar">
+      <div style="background:${SDLN.turq}"></div>
+      <div style="background:${SDLN.mint}"></div>
+      <div style="background:${SDLN.orng}"></div>
+      <div style="background:${SDLN.yell}"></div>
+    </div>
+
+    <div class="header">
+      <span class="header-title">SDLN WELLNESS</span>
+      <button class="refresh-btn" id="refBtn" onclick="handleRefresh()">
+        <span id="refIcon">↻</span> Aktualisieren
+      </button>
+    </div>
+    <div class="refresh-msg" id="refMsg"><span class="dot"></span>${generated}</div>
+
+    <div class="weight-card">
+      <div class="weight-row">
+        <div class="weight-main">
+          <span class="weight-big">${today?.weight?.toFixed(1) ?? "—"}</span>
+          <span class="weight-unit">kg</span>
+          <div class="weight-sub">Gewicht · heute</div>
+        </div>
+        <div class="weight-box" style="background:rgba(255,255,255,0.04)">
+          <div class="weight-val" style="color:var(--text)">${cw?.weight?.toFixed(1) ?? "—"}</div>
+          <div class="weight-lbl">KW-Ø</div>
+        </div>
+        <div class="weight-box" style="background:rgba(0,180,200,0.1)">
+          <div class="weight-val">${cw?.weight && pw?.weight ? wgtTrend(cw.weight, pw.weight) : "—"}</div>
+          <div class="weight-lbl">vs. ${pw?.kw ?? "—"}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      ${tileHTML("Schritte", SDLN.turq, "gestern",
+        schritte?.toLocaleString("de"), `/ ${targets.steps.toLocaleString("de")}`,
+        pct(schritte, targets.steps),
+        cw?.steps?.toLocaleString("de"), `/ ${targets.steps.toLocaleString("de")}`)}
+      ${tileHTML("Schlaf", SDLN.mint, "letzte Nacht",
+        schlaf, `/ ${targets.sleep}`,
+        sleepPct(schlaf, targets.sleep),
+        cw?.sleep, `/ ${targets.sleep}`)}
+      ${tileHTML("Protein", SDLN.orng, "gestern",
+        protein ? protein+"g" : null, `/ ${targets.protein}g`,
+        pct(protein, targets.protein),
+        cw?.protein ? cw.protein+"g" : null, `/ ${targets.protein}g`)}
+      ${tileHTML("kcal", SDLN.yell, "gestern",
+        kcal?.toLocaleString("de"), `/ ${targets.kcal.toLocaleString("de")}`,
+        pct(kcal, targets.kcal),
+        cw?.kcal?.toLocaleString("de"), `/ ${targets.kcal.toLocaleString("de")}`)}
+    </div>
+
+    ${tipText ? `
+    <div class="tip">
+      <div class="tip-title">Heute ein Auge drauf</div>
+      <div class="tip-text">${tipText} waren gestern etwas schwächer — einfach heute etwas bewusster</div>
+    </div>` : `
+    <div class="tip" style="border-left-color:${SDLN.mint}">
+      <div class="tip-title" style="color:${SDLN.mint}">Alles im grünen Bereich</div>
+      <div class="tip-text">Gestern alle Ziele erreicht — weiter so</div>
+    </div>`}
+
+    <p class="section-title" style="margin-top:1rem">Gewichtsverlauf</p>
+    <div class="chart-wrap">
+      <div class="chart-canvas"><canvas id="wc" role="img" aria-label="Gewichtstrend 2026"></canvas></div>
+    </div>
+
+    <p class="section-title">Wochenübersicht</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>KW</th><th>Gewicht</th><th>Schlaf</th>
+          <th>Schritte</th><th>kcal</th><th>Protein</th><th>Training</th>
+        </tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+
+    <div class="footer-stripes">
+      <div style="background:${SDLN.turq}"></div>
+      <div style="background:${SDLN.mint}"></div>
+      <div style="background:${SDLN.orng}"></div>
+      <div style="background:${SDLN.yell}"></div>
+    </div>
+    <div class="footer-tag">Sideline · For the ones who show up</div>
+  `;
+
+  const wgts = weeks.filter(w=>w.weight);
+  new Chart(document.getElementById("wc"), {
+    type:"line", data:{
+      labels: wgts.map(w=>w.kw),
+      datasets:[{data:wgts.map(w=>w.weight),borderColor:SDLN.turq,
+        backgroundColor:"rgba(0,180,200,0.08)",borderWidth:2,
+        pointRadius:2,pointBackgroundColor:SDLN.turq,tension:.35,fill:true}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y.toFixed(1)+" kg"}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:"#7d8590",font:{size:9},maxRotation:45,autoSkip:true,maxTicksLimit:10}},
+        y:{min:107,max:114,grid:{color:"rgba(255,255,255,0.05)"},
+           ticks:{color:"#7d8590",font:{size:9},callback:v=>v+" kg"},border:{display:false}}
+      }
+    }
+  });
+}
+
+window.handleRefresh = async function() {
+  let pat = localStorage.getItem("gh_pat");
+  if (!pat) {
+    pat = prompt("GitHub Personal Access Token eingeben (wird lokal gespeichert):");
+    if (!pat) return;
+    localStorage.setItem("gh_pat", pat);
+  }
+  const btn = document.getElementById("refBtn");
+  const msg = document.getElementById("refMsg");
+  const icon = document.getElementById("refIcon");
+  btn.classList.add("loading");
+  icon.classList.add("spin");
+  icon.textContent = "↻";
+  msg.textContent = "Workflow wird gestartet…";
+  try {
+    await triggerRun(pat);
+    msg.textContent = "Läuft… Daten in ~30 Sek verfügbar";
+    setTimeout(async () => {
+      try {
+        const r = await fetch("data/data.json?t=" + Date.now());
+        const d = await r.json();
+        render(d);
+      } catch(e) { msg.textContent = "Bitte in 1 Min nochmal laden"; }
+    }, 35000);
+  } catch(e) {
+    msg.textContent = "Fehler — Token prüfen";
+    localStorage.removeItem("gh_pat");
+  }
+  btn.classList.remove("loading");
+  icon.classList.remove("spin");
+};
+
+fetch("data/data.json?t=" + Date.now())
+  .then(r => r.json()).then(render)
+  .catch(() => {
+    document.getElementById("app").innerHTML =
+      `<div class="loading-screen"><div class="spinner"></div>
+       <p>Noch keine Daten.<br>Bitte GitHub Actions einmal manuell starten.</p></div>`;
+  });
+
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
