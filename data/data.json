@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T18:10",
+  "generated": "2026-06-10T18:16",
   "today": {
     "date": "2026-06-10",
     "weight": 110.7,
@@ -22,9 +22,9 @@
     "weight": 110.6,
     "rhr": 56,
     "sleep": "7:33",
-    "steps": 8880,
-    "kcal": 2492,
-    "protein": 154,
+    "steps": 9630,
+    "kcal": 3084,
+    "protein": 184,
     "train_min": 59,
     "load": 38
   },
@@ -348,9 +348,9 @@
       "weight": 110.6,
       "rhr": 56,
       "sleep": "7:33",
-      "steps": 8880,
-      "kcal": 2492,
-      "protein": 154,
+      "steps": 9630,
+      "kcal": 3084,
+      "protein": 184,
       "train_min": 59,
       "load": 38
     }
