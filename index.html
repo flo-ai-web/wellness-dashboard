@@ -61,7 +61,7 @@ html,body{background:var(--bg);color:var(--text);font-family:-apple-system,Blink
 
 .tip{margin:0 1rem 12px;background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;border-left:2px solid var(--orng);padding:9px 13px}
 .tip-title{font-size:11px;font-weight:500;color:var(--orng);margin-bottom:2px}
-.tip-text{font-size:10px;color:var(--muted);line-height:1.5}
+.tip-text{font-size:10px;color:var(--muted);line-height:1.7}.tip-text b{color:var(--text)}
 
 .section-title{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 1rem 8px}
 .chart-wrap{margin:0 1rem 1rem;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);padding:1rem 1rem 0.5rem}
@@ -175,7 +175,7 @@ async function triggerRun(pat) {
 
 function render(data) {
   const { today, yesterday, current_week:cw, prev_week:pw, weeks, targets, generated } = data;
-  const { daily: tipDaily, weekly: tipWeekly } = generateTips(today, yesterday, cw, pw, targets);
+  const { daily: tipDaily, weekly: tipWeekly } = generateTips(today, yesterday, cw, targets);
   const PAT = localStorage.getItem("gh_pat") || "";
 
   const tileHTML = (name, color, when, val, valFmt, pctVal, avg, avgFmt) => `
