@@ -1,9 +1,9 @@
 {
-  "generated": "2026-06-15T08:48",
+  "generated": "2026-06-15T11:36",
   "today": {
     "date": "2026-06-15",
     "weight": 110.18,
-    "rhr": null,
+    "rhr": 52,
     "sleep": "7:34",
     "sleep_score": 74.0,
     "bodyFat": 36.1
@@ -20,7 +20,7 @@
     "kw": "KW 25",
     "period": "15. Jun–21. Jun",
     "weight": 110.2,
-    "rhr": null,
+    "rhr": 52,
     "sleep": "7:34",
     "steps": null,
     "kcal": null,
@@ -359,7 +359,7 @@
       "kw": "KW 25",
       "period": "15. Jun–21. Jun",
       "weight": 110.2,
-      "rhr": null,
+      "rhr": 52,
       "sleep": "7:34",
       "steps": null,
       "kcal": null,
