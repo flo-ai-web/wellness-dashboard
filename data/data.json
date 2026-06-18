@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-18T11:53",
+  "generated": "2026-06-18T20:47",
   "today": {
     "date": "2026-06-18",
     "weight": 109.8,
@@ -25,8 +25,8 @@
     "steps": 7263,
     "kcal": 3020,
     "protein": 164,
-    "train_min": 37,
-    "load": 22
+    "train_min": 83,
+    "load": 54
   },
   "prev_week": {
     "key": "2026-06-08/2026-06-14",
@@ -364,8 +364,8 @@
       "steps": 7263,
       "kcal": 3020,
       "protein": 164,
-      "train_min": 37,
-      "load": 22
+      "train_min": 83,
+      "load": 54
     }
   ],
   "targets": {
