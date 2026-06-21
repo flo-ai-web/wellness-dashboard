@@ -1,9 +1,9 @@
 {
-  "generated": "2026-06-21T09:29",
+  "generated": "2026-06-21T11:18",
   "today": {
     "date": "2026-06-21",
     "weight": 108.809,
-    "rhr": null,
+    "rhr": 54,
     "sleep": "7:55",
     "sleep_score": 81.0,
     "bodyFat": 35.6
