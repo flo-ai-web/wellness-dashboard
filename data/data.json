@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-26T06:19",
+  "generated": "2026-06-26T08:41",
   "today": {
     "date": "2026-06-26",
     "weight": 108.97,
@@ -11,9 +11,9 @@
   "yesterday": {
     "date": "2026-06-25",
     "steps": 10546,
-    "kcal": null,
-    "protein": null,
-    "carbs": null
+    "kcal": 2643,
+    "protein": 159.0,
+    "carbs": 251.0
   },
   "current_week": {
     "key": "2026-06-22/2026-06-28",
@@ -23,8 +23,8 @@
     "rhr": 54,
     "sleep": "6:58",
     "steps": 7906,
-    "kcal": 2793,
-    "protein": 180,
+    "kcal": 2755,
+    "protein": 175,
     "train_min": 61,
     "load": 34
   },
@@ -375,8 +375,8 @@
       "rhr": 54,
       "sleep": "6:58",
       "steps": 7906,
-      "kcal": 2793,
-      "protein": 180,
+      "kcal": 2755,
+      "protein": 175,
       "train_min": 61,
       "load": 34
     }
