@@ -1,45 +1,45 @@
 {
-  "generated": "2026-06-28T10:30",
+  "generated": "2026-06-29T10:12",
   "today": {
-    "date": "2026-06-28",
-    "weight": 108.599,
-    "rhr": 56,
-    "sleep": "7:24",
-    "sleep_score": 92.0,
-    "bodyFat": 35.6
+    "date": "2026-06-29",
+    "weight": 109.3,
+    "rhr": 54,
+    "sleep": "7:54",
+    "sleep_score": 90.0,
+    "bodyFat": 35.8
   },
   "yesterday": {
-    "date": "2026-06-27",
-    "steps": 15140,
-    "kcal": 2625,
-    "protein": 136.0,
-    "carbs": 244.0
+    "date": "2026-06-28",
+    "steps": 4090,
+    "kcal": 405,
+    "protein": 44.0,
+    "carbs": 50.0
   },
   "current_week": {
+    "key": "2026-06-29/2026-07-05",
+    "kw": "KW 27",
+    "period": "29. Jun–5. Jul",
+    "weight": 109.3,
+    "rhr": 54,
+    "sleep": "7:54",
+    "steps": null,
+    "kcal": null,
+    "protein": null,
+    "train_min": null,
+    "load": null
+  },
+  "prev_week": {
     "key": "2026-06-22/2026-06-28",
     "kw": "KW 26",
     "period": "22. Jun–28. Jun",
     "weight": 108.8,
-    "rhr": 55,
+    "rhr": 54,
     "sleep": "6:59",
-    "steps": 8570,
-    "kcal": 2646,
-    "protein": 164,
+    "steps": 7930,
+    "kcal": 2326,
+    "protein": 147,
     "train_min": 164,
     "load": 146
-  },
-  "prev_week": {
-    "key": "2026-06-15/2026-06-21",
-    "kw": "KW 25",
-    "period": "15. Jun–21. Jun",
-    "weight": 109.7,
-    "rhr": 55,
-    "sleep": "7:25",
-    "steps": 9734,
-    "kcal": 3020,
-    "protein": 164,
-    "train_min": 83,
-    "load": 54
   },
   "weeks": [
     {
@@ -372,13 +372,26 @@
       "kw": "KW 26",
       "period": "22. Jun–28. Jun",
       "weight": 108.8,
-      "rhr": 55,
+      "rhr": 54,
       "sleep": "6:59",
-      "steps": 8570,
-      "kcal": 2646,
-      "protein": 164,
+      "steps": 7930,
+      "kcal": 2326,
+      "protein": 147,
       "train_min": 164,
       "load": 146
+    },
+    {
+      "key": "2026-06-29/2026-07-05",
+      "kw": "KW 27",
+      "period": "29. Jun–5. Jul",
+      "weight": 109.3,
+      "rhr": 54,
+      "sleep": "7:54",
+      "steps": null,
+      "kcal": null,
+      "protein": null,
+      "train_min": null,
+      "load": null
     }
   ],
   "targets": {
