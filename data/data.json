@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-08T06:25",
+  "generated": "2026-08-08T08:45",
   "today": {
     "date": "2026-08-08",
-    "weight": null,
-    "rhr": 57,
-    "sleep": null,
-    "sleep_score": null,
-    "bodyFat": null
+    "weight": 107.83,
+    "rhr": 55,
+    "sleep": "7:21",
+    "sleep_score": 81.0,
+    "bodyFat": 35.3
   },
   "yesterday": {
     "date": "2026-08-07",
