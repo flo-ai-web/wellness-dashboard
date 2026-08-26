@@ -1,30 +1,30 @@
 {
-  "generated": "2026-08-25T08:46",
+  "generated": "2026-08-26T06:19",
   "today": {
-    "date": "2026-08-25",
-    "weight": 108.199,
-    "rhr": 58,
-    "sleep": "7:22",
-    "sleep_score": 79.0,
-    "bodyFat": 35.5
+    "date": "2026-08-26",
+    "weight": 107.93,
+    "rhr": 54,
+    "sleep": "7:34",
+    "sleep_score": 89.0,
+    "bodyFat": 35.4
   },
   "yesterday": {
-    "date": "2026-08-24",
-    "steps": 7866,
-    "kcal": null,
-    "protein": null,
-    "carbs": null
+    "date": "2026-08-25",
+    "steps": 10647,
+    "kcal": 350,
+    "protein": 54.0,
+    "carbs": 19.0
   },
   "current_week": {
     "key": "2026-08-24/2026-08-30",
     "kw": "KW 35",
     "period": "24. Aug–30. Aug",
-    "weight": 108.4,
+    "weight": 108.2,
     "rhr": 56,
-    "sleep": "7:36",
-    "steps": 7866,
-    "kcal": null,
-    "protein": null,
+    "sleep": "7:35",
+    "steps": 9256,
+    "kcal": 350,
+    "protein": 54,
     "train_min": null,
     "load": null
   },
@@ -488,12 +488,12 @@
       "key": "2026-08-24/2026-08-30",
       "kw": "KW 35",
       "period": "24. Aug–30. Aug",
-      "weight": 108.4,
+      "weight": 108.2,
       "rhr": 56,
-      "sleep": "7:36",
-      "steps": 7866,
-      "kcal": null,
-      "protein": null,
+      "sleep": "7:35",
+      "steps": 9256,
+      "kcal": 350,
+      "protein": 54,
       "train_min": null,
       "load": null
     }
