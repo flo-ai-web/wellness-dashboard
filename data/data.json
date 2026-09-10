@@ -1,16 +1,16 @@
 {
-  "generated": "2026-09-09T12:48",
+  "generated": "2026-09-10T10:03",
   "today": {
-    "date": "2026-09-09",
-    "weight": 108.709,
-    "rhr": 57,
-    "sleep": "6:22",
-    "sleep_score": 76.0,
-    "bodyFat": 35.6
+    "date": "2026-09-10",
+    "weight": null,
+    "rhr": 55,
+    "sleep": "6:56",
+    "sleep_score": 82.0,
+    "bodyFat": null
   },
   "yesterday": {
-    "date": "2026-09-08",
-    "steps": 6696,
+    "date": "2026-09-09",
+    "steps": 3516,
     "kcal": null,
     "protein": null,
     "carbs": null
@@ -21,8 +21,8 @@
     "period": "7. Sep–13. Sep",
     "weight": 108.3,
     "rhr": 55,
-    "sleep": "7:30",
-    "steps": 4709,
+    "sleep": "7:21",
+    "steps": 4311,
     "kcal": null,
     "protein": null,
     "train_min": null,
@@ -516,8 +516,8 @@
       "period": "7. Sep–13. Sep",
       "weight": 108.3,
       "rhr": 55,
-      "sleep": "7:30",
-      "steps": 4709,
+      "sleep": "7:21",
+      "steps": 4311,
       "kcal": null,
       "protein": null,
       "train_min": null,
