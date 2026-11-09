@@ -1,43 +1,43 @@
 {
-  "generated": "2026-11-08T14:52",
+  "generated": "2026-11-09T14:23",
   "today": {
-    "date": "2026-11-08",
-    "weight": 112.569,
-    "rhr": 57,
-    "sleep": "8:24",
-    "sleep_score": 88.0,
-    "bodyFat": 37.0
+    "date": "2026-11-09",
+    "weight": 111.419,
+    "rhr": 60,
+    "sleep": "7:13",
+    "sleep_score": 75.0,
+    "bodyFat": 36.6
   },
   "yesterday": {
-    "date": "2026-11-07",
-    "steps": 15373,
-    "kcal": 2464,
-    "protein": 122.0,
-    "carbs": 267.0
+    "date": "2026-11-08",
+    "steps": 5440,
+    "kcal": 612,
+    "protein": 50.0,
+    "carbs": 69.0
   },
   "current_week": {
+    "key": "2026-11-09/2026-11-15",
+    "kw": "KW 46",
+    "period": "9. Nov–15. Nov",
+    "weight": 111.4,
+    "rhr": 60,
+    "sleep": "7:13",
+    "steps": null,
+    "kcal": null,
+    "protein": null,
+    "train_min": null,
+    "load": null
+  },
+  "prev_week": {
     "key": "2026-11-02/2026-11-08",
     "kw": "KW 45",
     "period": "2. Nov–8. Nov",
     "weight": 112.3,
     "rhr": 56,
     "sleep": "7:04",
-    "steps": 9114,
-    "kcal": 2464,
-    "protein": 122,
-    "train_min": null,
-    "load": null
-  },
-  "prev_week": {
-    "key": "2026-10-26/2026-11-01",
-    "kw": "KW 44",
-    "period": "26. Oct–1. Nov",
-    "weight": null,
-    "rhr": 59,
-    "sleep": "7:15",
-    "steps": 8484,
-    "kcal": null,
-    "protein": null,
+    "steps": 8589,
+    "kcal": 1538,
+    "protein": 86,
     "train_min": null,
     "load": null
   },
@@ -621,9 +621,22 @@
       "weight": 112.3,
       "rhr": 56,
       "sleep": "7:04",
-      "steps": 9114,
-      "kcal": 2464,
-      "protein": 122,
+      "steps": 8589,
+      "kcal": 1538,
+      "protein": 86,
+      "train_min": null,
+      "load": null
+    },
+    {
+      "key": "2026-11-09/2026-11-15",
+      "kw": "KW 46",
+      "period": "9. Nov–15. Nov",
+      "weight": 111.4,
+      "rhr": 60,
+      "sleep": "7:13",
+      "steps": null,
+      "kcal": null,
+      "protein": null,
       "train_min": null,
       "load": null
     }
